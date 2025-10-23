@@ -30,8 +30,7 @@ class FamilyStructure:
                 "last_name": last_name,
                 "age": 5,
                 "lucky_numbers": [1]
-            },
-            
+            }
         ]
 
     # This method generates a unique incremental ID
@@ -40,25 +39,30 @@ class FamilyStructure:
         self._next_id += 1
         return generated_id
 
+    # Add a new member
     def add_member(self, member):
-        ## You have to implement this method
-        ## Append the member to the list of _members
+        if "id" not in member:
+            member["id"] = self._generate_id()  # generate new ID if not provided
+        member["last_name"] = self.last_name    # always Jackson
         self._members.append(member)
+        return member
 
+    # Delete a member by id
     def delete_member(self, id):
-        ## You have to implement this method
-        ## Loop the list and delete the member with the given id
-        pass
+        for i, member in enumerate(self._members):
+            if member["id"] == id:
+                self._members.pop(i)
+                return True
+        return False
 
+
+# Get a member by id
     def get_member(self, id):
-        ## You have to implement this method
-        ## Loop all the members and return the one with the given id
         for member in self._members:
-            if member['id'] == id:
+            if member["id"] == id:
                 return member
-            
-             
+        return None
 
-    # This method is done, it returns a list with all the family members
+    # Return all members
     def get_all_members(self):
         return self._members
